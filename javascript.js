@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. LÓGICA DE ACESSIBILIDADE ---
+    // --- 1. LÓGICA DE ACESSIBILIDADE (FONTE E ALTO CONTRASTE) ---
     const btnIncreaseFont = document.getElementById('btn-increase-font');
     const btnDecreaseFont = document.getElementById('btn-decrease-font');
     const btnToggleContrast = document.getElementById('btn-toggle-contrast');
@@ -8,15 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentFontSize = 16;
 
     btnIncreaseFont.addEventListener('click', () => {
-        if (currentFontSize < 24) {
-            currentFontSize += 2;
+        let novaFonte = currentFontSize + 2;
+        if (novaFonte >= 12 && novaFonte <= 24) {
+            currentFontSize = novaFonte;
             document.documentElement.style.fontSize = `${currentFontSize}px`;
         }
     });
 
     btnDecreaseFont.addEventListener('click', () => {
-        if (currentFontSize > 12) {
-            currentFontSize -= 2;
+        let novaFonte = currentFontSize - 2;
+        if (novaFonte >= 12 && novaFonte <= 24) {
+            currentFontSize = novaFonte;
             document.documentElement.style.fontSize = `${currentFontSize}px`;
         }
     });
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.toggle('high-contrast');
     });
 
-    // --- 2. GERADOR DE SENHAS ---
+    // --- 2. GERADOR DE SENHAS CRIPTOGRÁFICAS ---
     const passwordDisplay = document.getElementById('password-display');
     const btnCopy = document.getElementById('btn-copy');
     const copyMessage = document.getElementById('copy-message');
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     lengthSlider.addEventListener('input', (e) => {
         lengthValue.textContent = e.target.value;
+        generatePassword();
     });
 
     function generatePassword() {
@@ -58,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (availableChars === '') {
             passwordDisplay.value = '';
-            copyMessage.textContent = 'Selecione ao menos uma opção!';
+            copyMessage.textContent = 'Selecione ao menos um tipo de caractere!';
             return;
         }
 
@@ -66,46 +69,53 @@ document.addEventListener('DOMContentLoaded', () => {
         let password = '';
         const length = parseInt(lengthSlider.value, 10);
         
-        // Uso de Crypto API para aleatoriedade segura
-        const array = new Uint32Array(length);
-        window.crypto.getRandomValues(array);
+        // Uso da Web Crypto API para geração verdadeiramente aleatória
+        const randomValues = new Uint32Array(length);
+        window.crypto.getRandomValues(randomValues);
 
         for (let i = 0; i < length; i++) {
-            password += availableChars[array[i] % availableChars.length];
+            password += availableChars[randomValues[i] % availableChars.length];
         }
 
         passwordDisplay.value = password;
     }
 
+    // Ouvintes nos botões e caixas de seleção para regeneração automática
     btnGenerate.addEventListener('click', generatePassword);
+    chkUppercase.addEventListener('change', generatePassword);
+    chkLowercase.addEventListener('change', generatePassword);
+    chkNumbers.addEventListener('change', generatePassword);
+    chkSymbols.addEventListener('change', generatePassword);
 
     btnCopy.addEventListener('click', () => {
         if (!passwordDisplay.value) return;
         navigator.clipboard.writeText(passwordDisplay.value).then(() => {
             copyMessage.textContent = 'Senha copiada com sucesso!';
             setTimeout(() => { copyMessage.textContent = ''; }, 3000);
+        }).catch(() => {
+            copyMessage.textContent = 'Erro ao copiar a senha.';
         });
     });
 
-    // Gerar uma senha inicial
+    // Gerar a senha inicial imediatamente
     generatePassword();
 
-    // --- 3. CARROSSEL DE DEPOIMENTOS (ARRAY DE OBJETOS) ---
+    // --- 3. DEPOIMENTOS (ARRAY DE OBJETOS) ---
     const testimonials = [
         {
-            quote: "A CyberVault redefiniu os padrões de segurança na nossa infraestrutura. O gerador local garante zero vazamento de dados.",
-            author: "Carlos Eduardo Mendes",
-            role: "CTO na FinTech Secure"
+            quote: "A CyberVault garantiu a padronização e complexidade de senhas em todo o nosso time de devops sem depender de apis externas.",
+            author: "Marcos Vinícius Prado",
+            role: "Head de Cibersegurança na Datashield"
         },
         {
-            quote: "A facilidade de uso combinada com algoritmos robustos nos deu a tranquilidade que precisávamos para proteger credenciais administrativas.",
-            author: "Mariana R. Siqueira",
-            role: "Especialista em Cibersegurança"
+            quote: "Geração instantânea e zero rastreamento server-side. É a ferramenta indispensável do nosso dia a dia corporativo.",
+            author: "Renata Vasconcelos",
+            role: "Engenheira de Confiabilidade (SRE)"
         },
         {
-            quote: "Interface limpa, acessibilidade impecável e execução rápida. A melhor ferramenta de geração e auditoria da categoria.",
-            author: "Roberto Rocha",
-            role: "Diretor de Operações de TI"
+            quote: "Garantia técnica de entropia aliada a uma interface acessível e extremamente intuitiva.",
+            author: "Gabriel Sampaio",
+            role: "Analista de Segurança da Informação"
         }
     ];
 
@@ -137,19 +147,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderTestimonial(currentTestimonial);
 
-    // --- 4. ACORDEÃO FAQ (ARRAY DE OBJETOS) ---
+    // --- 4. FAQ ACORDEÃO (ARRAY DE OBJETOS) ---
     const faqData = [
         {
-            question: "Como o gerador de senhas garante que minha senha é segura?",
-            answer: "Utilizamos a API de Criptografia Web nativa do navegador (`window.crypto`), gerando números verdadeiramente aleatórios sem depender de conexão externa."
+            question: "Como o gerador de senhas garante aleatoriedade real?",
+            answer: "Utilizamos a interface `window.crypto.getRandomValues()`, que acessa a entropia do sistema operacional do seu dispositivo para gerar valores criptograficamente seguros."
         },
         {
-            question: "As senhas geradas ficam salvas em algum servidor?",
-            answer: "Não. Todo o processo ocorre exclusivamente na memória do seu próprio dispositivo e navegador. Nenhum dado transita por redes externas."
+            question: "Minha senha gerada passa por algum servidor?",
+            answer: "Não. A senha é computada 100% via JavaScript no seu próprio navegador. Nenhum dado é enviado, armazenado ou registrado em logs externos."
         },
         {
-            question: "O que é uma senha de alta entropia?",
-            answer: "É uma senha construída com alto grau de imprevisibilidade e variedade de caracteres, dificultando matematicamente ataques cibernéticos."
+            question: "Por que devo utilizar senhas com mais de 16 caracteres?",
+            answer: "Senhas longas combinando letras, números e símbolos expandem exponencialmente o espaço de chaves, tornando ataques de força bruta computacionalmente inviáveis."
         }
     ];
 
@@ -158,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderFAQ() {
         accordionContainer.innerHTML = faqData.map((item, index) => `
             <div class="accordion-item" id="faq-item-${index}">
-                <button class="accordion-header" onclick="toggleAccordion(${index})">
+                <button class="accordion-header" type="button" onclick="toggleAccordion(${index})">
                     <span>${item.question}</span>
                     <span>+</span>
                 </button>

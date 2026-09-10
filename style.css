@@ -1,4 +1,4 @@
-/* VARIÁVEIS DO SISTEMA DE DESIGN (TEMA VERMELHO) */
+/* VARIÁVEIS DO SISTEMA DE DESIGN */
 :root {
     --primary-color: #D32F2F;
     --primary-hover: #B71C1C;
@@ -15,7 +15,7 @@
     --font-base: 16px;
 }
 
-/* RESET E BASE */
+/* RESET E BASE FLUIDA */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -40,7 +40,7 @@ body {
     margin: 0 auto;
 }
 
-/* ACESSIBILIDADE BAR */
+/* BARRA DE ACESSIBILIDADE */
 .accessibility-bar {
     background-color: var(--dark-bg);
     color: var(--white);
@@ -128,7 +128,7 @@ body.high-contrast a, body.high-contrast button {
     color: var(--primary-color);
 }
 
-/* BOTÕES */
+/* BOTÕES DE AÇÃO */
 .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -220,7 +220,7 @@ body.high-contrast a, body.high-contrast button {
     flex-wrap: wrap;
 }
 
-/* GERADOR DE SENHAS */
+/* CARD GERADOR DE SENHAS */
 .generator-section {
     padding: clamp(2rem, 5vw, 4rem) 0;
     margin-top: -3rem;
@@ -418,7 +418,7 @@ body.high-contrast a, body.high-contrast button {
     color: var(--white);
 }
 
-/* ACORDEÃO */
+/* ACORDEÃO FAQ */
 .faq-section {
     padding: clamp(3rem, 6vw, 5rem) 0;
 }
@@ -488,7 +488,6 @@ body.high-contrast a, body.high-contrast button {
     font-size: 0.875rem;
 }
 
-/* RESPONSIVIDADE ADICIONAL */
 @media (max-width: 768px) {
     .nav {
         display: none;
