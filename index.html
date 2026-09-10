@@ -7,7 +7,504 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* VARIÁVEIS DO SISTEMA DE DESIGN */
+        :root {
+            --primary-color: #D32F2F;
+            --primary-hover: #B71C1C;
+            --primary-light: #FFEBEE;
+            --dark-bg: #111111;
+            --card-bg: #FFFFFF;
+            --text-color: #212121;
+            --text-muted: #666666;
+            --border-color: #E0E0E0;
+            --white: #FFFFFF;
+            
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --font-base: 16px;
+        }
+
+        /* RESET E BASE FLUIDA */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: var(--font-base);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            background-color: #F9F9F9;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* BARRA DE ACESSIBILIDADE */
+        .accessibility-bar {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            padding: 0.5rem 0;
+            font-size: clamp(0.75rem, 2vw, 0.875rem);
+        }
+
+        .accessibility-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: clamp(0.5rem, 2vw, 1rem);
+        }
+
+        .accessibility-bar button {
+            background: transparent;
+            border: 1px solid var(--white);
+            color: var(--white);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .accessibility-bar button:hover {
+            background-color: var(--white);
+            color: var(--dark-bg);
+        }
+
+        /* BLINDAGEM DO MODO DE ALTO CONTRASTE */
+        body.high-contrast, body.high-contrast *:not(i):not(.icon) {
+            background-color: #000 !important;
+            color: #fff !important;
+            border: 1px solid #ff0 !important;
+            background-image: none !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+        body.high-contrast a, body.high-contrast button {
+            color: #ff0 !important;
+            text-decoration: underline !important;
+            font-weight: bold !important;
+        }
+
+        /* CABEÇALHO */
+        .header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 800;
+            color: var(--dark-bg);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav {
+            display: flex;
+            gap: clamp(1rem, 3vw, 2rem);
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* BOTÕES DE AÇÃO */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s, transform 0.2s;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--dark-bg);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--dark-bg);
+        }
+
+        .btn-light {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .btn-light:hover {
+            background-color: var(--primary-light);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: clamp(1rem, 2vw, 1.125rem);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: clamp(3rem, 8vw, 6rem) 0;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #FFFFFF 100%);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            background-color: rgba(211, 47, 47, 0.1);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* CARD GERADOR DE SENHAS */
+        .generator-section {
+            padding: clamp(2rem, 5vw, 4rem) 0;
+            margin-top: -3rem;
+        }
+
+        .generator-card {
+            background-color: var(--card-bg);
+            padding: clamp(1.5rem, 4vw, 3rem);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .generator-card h2 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .generator-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .display-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .display-group input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-family: monospace;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            outline: none;
+            letter-spacing: 1px;
+        }
+
+        .copy-message {
+            height: 20px;
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .controls-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .control-item input[type="range"] {
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .checkbox-container input {
+            accent-color: var(--primary-color);
+            width: 18px;
+            height: 18px;
+        }
+
+        /* RECURSOS */
+        .features-section {
+            padding: clamp(3rem, 6vw, 5rem) 0;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-title h2 {
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(1rem, 3vw, 2rem);
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .icon-box {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+        }
+
+        /* CARROSSEL */
+        .testimonials-section {
+            padding: clamp(3rem, 6vw, 5rem) 0;
+            background-color: #F0F0F0;
+        }
+
+        .carousel-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card h4 {
+            color: var(--primary-color);
+        }
+
+        .testimonial-card span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-carousel {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .btn-carousel:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* ACORDEÃO FAQ */
+        .faq-section {
+            padding: clamp(3rem, 6vw, 5rem) 0;
+        }
+
+        .accordion-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .accordion-item {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .accordion-body {
+            padding: 0 1.5rem 1.25rem;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .accordion-item.active .accordion-body {
+            display: block;
+        }
+
+        /* CTA & FOOTER */
+        .cta-section {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: clamp(3rem, 6vw, 5rem) 0;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-section p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .footer {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -167,6 +664,201 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. LÓGICA DE ACESSIBILIDADE (FONTE E ALTO CONTRASTE) ---
+            const btnIncreaseFont = document.getElementById('btn-increase-font');
+            const btnDecreaseFont = document.getElementById('btn-decrease-font');
+            const btnToggleContrast = document.getElementById('btn-toggle-contrast');
+            
+            let currentFontSize = 16;
+
+            btnIncreaseFont.addEventListener('click', () => {
+                let novaFonte = currentFontSize + 2;
+                if (novaFonte >= 12 && novaFonte <= 24) {
+                    currentFontSize = novaFonte;
+                    document.documentElement.style.fontSize = `${currentFontSize}px`;
+                }
+            });
+
+            btnDecreaseFont.addEventListener('click', () => {
+                let novaFonte = currentFontSize - 2;
+                if (novaFonte >= 12 && novaFonte <= 24) {
+                    currentFontSize = novaFonte;
+                    document.documentElement.style.fontSize = `${currentFontSize}px`;
+                }
+            });
+
+            btnToggleContrast.addEventListener('click', () => {
+                document.body.classList.toggle('high-contrast');
+            });
+
+            // --- 2. GERADOR DE SENHAS CRIPTOGRÁFICAS ---
+            const passwordDisplay = document.getElementById('password-display');
+            const btnCopy = document.getElementById('btn-copy');
+            const copyMessage = document.getElementById('copy-message');
+            const lengthSlider = document.getElementById('length-slider');
+            const lengthValue = document.getElementById('length-value');
+            const btnGenerate = document.getElementById('btn-generate');
+
+            const chkUppercase = document.getElementById('chk-uppercase');
+            const chkLowercase = document.getElementById('chk-lowercase');
+            const chkNumbers = document.getElementById('chk-numbers');
+            const chkSymbols = document.getElementById('chk-symbols');
+
+            const charSets = {
+                uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                lowercase: 'abcdefghijklmnopqrstuvwxyz',
+                numbers: '0123456789',
+                symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+            };
+
+            lengthSlider.addEventListener('input', (e) => {
+                lengthValue.textContent = e.target.value;
+                generatePassword();
+            });
+
+            function generatePassword() {
+                let availableChars = '';
+                if (chkUppercase.checked) availableChars += charSets.uppercase;
+                if (chkLowercase.checked) availableChars += charSets.lowercase;
+                if (chkNumbers.checked) availableChars += charSets.numbers;
+                if (chkSymbols.checked) availableChars += charSets.symbols;
+
+                if (availableChars === '') {
+                    passwordDisplay.value = '';
+                    copyMessage.textContent = 'Selecione ao menos um tipo de caractere!';
+                    return;
+                }
+
+                copyMessage.textContent = '';
+                let password = '';
+                const length = parseInt(lengthSlider.value, 10);
+                
+                // Uso da Web Crypto API para geração verdadeiramente aleatória
+                const randomValues = new Uint32Array(length);
+                window.crypto.getRandomValues(randomValues);
+
+                for (let i = 0; i < length; i++) {
+                    password += availableChars[randomValues[i] % availableChars.length];
+                }
+
+                passwordDisplay.value = password;
+            }
+
+            // Ouvintes nos botões e caixas de seleção para regeneração automática
+            btnGenerate.addEventListener('click', generatePassword);
+            chkUppercase.addEventListener('change', generatePassword);
+            chkLowercase.addEventListener('change', generatePassword);
+            chkNumbers.addEventListener('change', generatePassword);
+            chkSymbols.addEventListener('change', generatePassword);
+
+            btnCopy.addEventListener('click', () => {
+                if (!passwordDisplay.value) return;
+                navigator.clipboard.writeText(passwordDisplay.value).then(() => {
+                    copyMessage.textContent = 'Senha copiada com sucesso!';
+                    setTimeout(() => { copyMessage.textContent = ''; }, 3000);
+                }).catch(() => {
+                    copyMessage.textContent = 'Erro ao copiar a senha.';
+                });
+            });
+
+            // Gerar a senha inicial imediatamente
+            generatePassword();
+
+            // --- 3. DEPOIMENTOS (ARRAY DE OBJETOS) ---
+            const testimonials = [
+                {
+                    quote: "A CyberVault garantiu a padronização e complexidade de senhas em todo o nosso time de devops sem depender de apis externas.",
+                    author: "Marcos Vinícius Prado",
+                    role: "Head de Cibersegurança na Datashield"
+                },
+                {
+                    quote: "Geração instantânea e zero rastreamento server-side. É a ferramenta indispensável do nosso dia a dia corporativo.",
+                    author: "Renata Vasconcelos",
+                    role: "Engenheira de Confiabilidade (SRE)"
+                },
+                {
+                    quote: "Garantia técnica de entropia aliada a uma interface acessível e extremamente intuitiva.",
+                    author: "Gabriel Sampaio",
+                    role: "Analista de Segurança da Informação"
+                }
+            ];
+
+            let currentTestimonial = 0;
+            const carouselContainer = document.getElementById('carousel-container');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+            function renderTestimonial(index) {
+                const item = testimonials[index];
+                carouselContainer.innerHTML = `
+                    <div class="testimonial-card">
+                        <p>"${item.quote}"</p>
+                        <h4>${item.author}</h4>
+                        <span>${item.role}</span>
+                    </div>
+                `;
+            }
+
+            btnPrev.addEventListener('click', () => {
+                currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+                renderTestimonial(currentTestimonial);
+            });
+
+            btnNext.addEventListener('click', () => {
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                renderTestimonial(currentTestimonial);
+            });
+
+            renderTestimonial(currentTestimonial);
+
+            // --- 4. FAQ ACORDEÃO (ARRAY DE OBJETOS) ---
+            const faqData = [
+                {
+                    question: "Como o gerador de senhas garante aleatoriedade real?",
+                    answer: "Utilizamos a interface `window.crypto.getRandomValues()`, que acessa a entropia do sistema operacional do seu dispositivo para gerar valores criptograficamente seguros."
+                },
+                {
+                    question: "Minha senha gerada passa por algum servidor?",
+                    answer: "Não. A senha é computada 100% via JavaScript no seu próprio navegador. Nenhum dado é enviado, armazenado ou registrado em logs externos."
+                },
+                {
+                    question: "Por que devo utilizar senhas com mais de 16 caracteres?",
+                    answer: "Senhas longas combinando letras, números e símbolos expandem exponencialmente o espaço de chaves, tornando ataques de força bruta computacionalmente inviáveis."
+                }
+            ];
+
+            const accordionContainer = document.getElementById('accordion-container');
+
+            function renderFAQ() {
+                accordionContainer.innerHTML = faqData.map((item, index) => `
+                    <div class="accordion-item" id="faq-item-${index}">
+                        <button class="accordion-header" type="button" onclick="toggleAccordion(${index})">
+                            <span>${item.question}</span>
+                            <span>+</span>
+                        </button>
+                        <div class="accordion-body">
+                            <p>${item.answer}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            window.toggleAccordion = function(index) {
+                const items = document.querySelectorAll('.accordion-item');
+                items.forEach((item, i) => {
+                    if (i === index) {
+                        item.classList.toggle('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            };
+
+            renderFAQ();
+        });
+    </script>
 </body>
 </html>
