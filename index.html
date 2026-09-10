@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberVault | Segurança de Dados e Gerador de Senhas Fortes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- BARRA DE ACESSIBILIDADE -->
+    <div class="accessibility-bar" role="region" aria-label="Acessibilidade">
+        <div class="container accessibility-container">
+            <span>Acessibilidade:</span>
+            <button id="btn-decrease-font" aria-label="Diminuir tamanho do texto">A-</button>
+            <button id="btn-increase-font" aria-label="Aumentar tamanho do texto">A+</button>
+            <button id="btn-toggle-contrast" aria-label="Alternar Alto Contraste">Alto Contraste</button>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVEGAÇÃO -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">Cyber<span>Vault</span></a>
+            <nav class="nav">
+                <a href="#ferramenta">Gerador</a>
+                <a href="#recursos">Recursos</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <a href="#ferramenta" class="btn btn-primary">Proteger Agora</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="badge">Blindagem Digital de Nível Militar</span>
+                    <h1>Proteja sua identidade digital com senhas inquebráveis</h1>
+                    <p>Vazamentos de dados acontecem diariamente. Crie senhas criptograficamente seguras em milissegundos e garanta a proteção total das suas contas corporativas e pessoais.</p>
+                    <div class="hero-actions">
+                        <a href="#ferramenta" class="btn btn-primary btn-lg">Gerar Senha Segura</a>
+                        <a href="#recursos" class="btn btn-secondary btn-lg">Conhecer a Tecnologia</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FERRAMENTA / GERADOR DE SENHAS -->
+        <section id="ferramenta" class="generator-section">
+            <div class="container">
+                <div class="generator-card">
+                    <h2>Gerador de Senhas Criptográficas</h2>
+                    <p>Configure e copie instantaneamente sua senha de alta segurança.</p>
+
+                    <div class="display-group">
+                        <input type="text" id="password-display" readonly aria-label="Senha Gerada" placeholder="Clique em Gerar">
+                        <button id="btn-copy" class="btn btn-primary">Copiar</button>
+                    </div>
+                    <div id="copy-message" class="copy-message" aria-live="polite"></div>
+
+                    <div class="controls-group">
+                        <div class="control-item">
+                            <label for="length-slider">Comprimento: <span id="length-value">16</span> caracteres</label>
+                            <input type="range" id="length-slider" min="8" max="32" value="16">
+                        </div>
+
+                        <div class="checkbox-grid">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="chk-uppercase" checked> Maiúsculas (A-Z)
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="chk-lowercase" checked> Minúsculas (a-z)
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="chk-numbers" checked> Números (0-9)
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="chk-symbols" checked> Símbolos (!@#$)
+                            </label>
+                        </div>
+
+                        <button id="btn-generate" class="btn btn-primary btn-block">Gerar Nova Senha</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECURSOS / DIFERENCIAIS -->
+        <section id="recursos" class="features-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Por que a CyberVault é a escolha nº 1 em Segurança?</h2>
+                    <p>Desenvolvido sob rigorosos padrões internacionais de proteção cibernética.</p>
+                </div>
+                <div class="grid-3">
+                    <div class="feature-card">
+                        <div class="icon-box">🛡️</div>
+                        <h3>Processamento 100% Local</h3>
+                        <p>Sua senha é gerada no seu próprio navegador. Nenhum dado é enviado ou armazenado em nossos servidores.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-box">⚡</div>
+                        <h3>Entropia Máxima</h3>
+                        <p>Algoritmos de aleatoriedade avançada que garantem resistência absoluta contra ataques de força bruta.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-box">🔒</div>
+                        <h3>Conformidade LGPD & GDPR</h3>
+                        <p>Projetado desde a primeira linha de código para respeitar a privacidade rigorosa dos seus dados.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEPOIMENTOS (CARROSSEL DINÂMICO) -->
+        <section id="depoimentos" class="testimonials-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Confiança Aprovada por Especialistas</h2>
+                    <p>Veja o que líderes de TI e segurança de dados dizem sobre nossa solução.</p>
+                </div>
+                <div class="carousel-wrapper">
+                    <div id="carousel-container" class="carousel-container">
+                        <!-- Injetado via Javascript -->
+                    </div>
+                    <div class="carousel-controls">
+                        <button id="btn-prev" class="btn-carousel" aria-label="Depoimento Anterior">‹</button>
+                        <button id="btn-next" class="btn-carousel" aria-label="Próximo Depoimento">›</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ (ACORDEÃO DINÂMICO) -->
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Perguntas Frequentes</h2>
+                    <p>Tire suas dúvidas sobre o gerador de senhas e segurança cibernética.</p>
+                </div>
+                <div id="accordion-container" class="accordion-container">
+                    <!-- Injetado via Javascript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Não espere pelo próximo vazamento.</h2>
+                <p>Fortaleça sua infraestrutura de credenciais hoje mesmo.</p>
+                <a href="#ferramenta" class="btn btn-light btn-lg">Criar Minha Senha Segura</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; 2026 CyberVault Inc. Todos os direitos reservados. Proteção de dados de alta precisão.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
